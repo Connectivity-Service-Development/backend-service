@@ -27,6 +27,7 @@ repositories {
 ext {
     set('springModulithVersion', "1.2.4")
     set('logbookVersion', "3.9.0")
+    set('swaggerUiVersion', "2.6.0")
 }
 
 dependencies {
@@ -44,7 +45,8 @@ dependencies {
     runtimeOnly 'org.springframework.modulith:spring-modulith-actuator'
     runtimeOnly 'org.springframework.modulith:spring-modulith-observability'
 
-    implementation "org.zalando:logbook-spring-boot-starter:${logbookVersion}"
+    implementation "org.zalando:logbook-spring-boot-starter:${swaggerUiVersion}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0"
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'

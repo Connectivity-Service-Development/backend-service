@@ -12,6 +12,10 @@ Postgres is required. Run app with profile name `local`. Configure DB per `resou
 
 Test containers is used for test profile, **Docker** is required.
 
+## Swagger-ui
+
+[/swagger/swagger-ui/index.htm]()
+
 ## CI/CD
 
 Pipeline is triggered manually. It builds docker image and pushes it to Digital Ocean container registry.

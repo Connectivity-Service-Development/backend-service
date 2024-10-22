@@ -1,15 +1,15 @@
 package com.skoda.tenderconnectivity.backendservice;
 
-import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.test.web.servlet.MockMvc;
 
-@Import(TestcontainersConfiguration.class)
-@SpringBootTest
-class BackendServiceApplicationTests {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@AutoConfigureMockMvc
+public abstract class BackendServiceApplicationTests {
+    @Autowired
+    protected MockMvc mockMvc;
 
-    @Test
-    void contextLoads() {
-    }
 
 }

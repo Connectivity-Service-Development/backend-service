@@ -2,6 +2,16 @@
 
 Hosted on Github: https://github.com/Connectivity-Service-Development/backend-service
 
+## Project setup
+
+### Localhost
+
+Postgres is required. Run app with profile name `local`. Configure DB per `resources/application-local.properties`
+
+### Tests
+
+Test containers is used for test profile, **Docker** is required.
+
 ## CI/CD
 
 Pipeline is triggered manually. It builds docker image and pushes it to Digital Ocean container registry.

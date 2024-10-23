@@ -1,4 +1,4 @@
-package com.skoda.tenderconnectivity.backendservice.prepaidservice.domain;
+package com.skoda.tenderconnectivity.backendservice.prepaidservice.service.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

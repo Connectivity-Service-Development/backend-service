@@ -1,8 +1,9 @@
 package com.skoda.tenderconnectivity.backendservice.prepaidservice.repository;
 
 
-import com.skoda.tenderconnectivity.backendservice.prepaidservice.domain.UserPrepaidService;
-import com.skoda.tenderconnectivity.backendservice.prepaidservice.domain.UserServiceFinder;
+import com.skoda.tenderconnectivity.backendservice.prepaidservice.repository.jparepository.UserPrepaidServiceRepository;
+import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.UserServiceFinder;
+import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.domain.UserPrepaidService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

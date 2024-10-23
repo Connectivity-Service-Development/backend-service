@@ -5,6 +5,10 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="1" author="Dmitry Avgustis">
+        <sql>
+            CREATE
+            EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
         <createTable tableName="sample">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -35,7 +39,7 @@
 
     <changeSet id="3" author="Dmitry Avgustis">
         <createTable tableName="prepaid_service">
-            <column name="id" type="BIGINT" autoIncrement="true">
+            <column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="service_name" type="VARCHAR(100)">
@@ -58,7 +62,7 @@
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="prepaid_service_id" type="BIGINT">
+            <column name="prepaid_service_id" type="UUID">
                 <constraints nullable="false"/>
             </column>
             <column name="expiration_date" type="DATE">
@@ -110,7 +114,6 @@
         </insert>
 
         <insert tableName="prepaid_service">
-            <column name="id" value="1"/>
             <column name="service_name" value="INFOTAINMENT_ONLINE"/>
             <column name="description" value="Infotainment Online Service"/>
             <column name="price" value="9.99"/>
@@ -119,7 +122,6 @@
         </insert>
 
         <insert tableName="prepaid_service">
-            <column name="id" value="2"/>
             <column name="service_name" value="REMOTE_ACCESS"/>
             <column name="description" value="Remote Access Service"/>
             <column name="price" value="7.99"/>
@@ -128,7 +130,6 @@
         </insert>
 
         <insert tableName="prepaid_service">
-            <column name="id" value="3"/>
             <column name="service_name" value="TRAVEL_ASSIST"/>
             <column name="description" value="Online data for Travel Assist"/>
             <column name="price" value="5.99"/>
@@ -137,7 +138,6 @@
         </insert>
 
         <insert tableName="prepaid_service">
-            <column name="id" value="4"/>
             <column name="service_name" value="MEDIA_STREAMING"/>
             <column name="description" value="Media Streaming Service"/>
             <column name="price" value="8.49"/>
@@ -146,7 +146,6 @@
         </insert>
 
         <insert tableName="prepaid_service">
-            <column name="id" value="5"/>
             <column name="service_name" value="INTELLIGENT_SPEED_ASSIST"/>
             <column name="description" value="Online data for Intelligent Speed Assist"/>
             <column name="price" value="6.99"/>
@@ -155,7 +154,6 @@
         </insert>
 
         <insert tableName="prepaid_service">
-            <column name="id" value="6"/>
             <column name="service_name" value="TRAFFICATION"/>
             <column name="description" value="Traffication Service"/>
             <column name="price" value="4.99"/>
@@ -166,31 +164,25 @@
         <insert tableName="user_prepaid_service">
             <column name="id" value="1"/>
             <column name="user_id" value="1"/>
-            <column name="prepaid_service_id" value="1"/>
-            <column name="expiration_date" valueDate="2023-12-01"/>
+            <column name="prepaid_service_id"
+                    valueComputed="(SELECT id FROM prepaid_service WHERE service_name = 'INFOTAINMENT_ONLINE')">
+            </column>
+            <column name="expiration_date" valueDate="2024-11-01"/>
             <column name="is_active" valueBoolean="true"/>
-            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
-            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="created_date" valueDate="2024-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2024-10-20T10:00:00"/>
         </insert>
 
         <insert tableName="user_prepaid_service">
             <column name="id" value="2"/>
             <column name="user_id" value="1"/>
-            <column name="prepaid_service_id" value="2"/>
+            <column name="prepaid_service_id"
+                    valueComputed="(SELECT id FROM prepaid_service WHERE service_name = 'INTELLIGENT_SPEED_ASSIST')">
+            </column>
             <column name="expiration_date" valueDate="2023-11-15"/>
             <column name="is_active" valueBoolean="true"/>
-            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
-            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
-        </insert>
-
-        <insert tableName="user_prepaid_service">
-            <column name="id" value="3"/>
-            <column name="user_id" value="1"/>
-            <column name="prepaid_service_id" value="3"/>
-            <column name="expiration_date" valueDate="2023-11-20"/>
-            <column name="is_active" valueBoolean="true"/>
-            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
-            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="created_date" valueDate="2024-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2024-10-20T10:00:00"/>
         </insert>
 
     </changeSet>

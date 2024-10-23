@@ -3,17 +3,18 @@ package com.skoda.tenderconnectivity.backendservice.prepaidservice.controller;
 import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.PrepaidServiceFinder;
 import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.UserServiceManager;
 import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.domain.PrepaidService;
+import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.domain.ProlongRequest;
 import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.domain.UserPrepaidService;
+import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.event.ProlongEvent;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class PrepaidServiceController {
 
     private final UserServiceManager userServiceManager;
     private final PrepaidServiceFinder prepaidServiceFinder;
+    private final ApplicationEventPublisher eventPublisher;
 
     @GetMapping("/user")
     @Operation(
@@ -33,20 +35,11 @@ public class PrepaidServiceController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "List of user prepaid services",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = UserPrepaidService.class)
-                            )
+                            description = "List of user prepaid services"
                     ),
-                    @ApiResponse(
-                            responseCode = "401",
-                            description = "Unauthorized - The user is not authenticated"
-                    )
             }
     )
     public List<UserPrepaidService> getUserPrepaidServices(Authentication authentication) {
-//        Long userId = (Long) authentication.getPrincipal();
         //since no real auth implemented, hardcode the ID for demo purposes.
         Long userId = 1L;
         return userServiceManager.listUserPrepaidServices(userId);
@@ -66,5 +59,20 @@ public class PrepaidServiceController {
     )
     public List<PrepaidService> getAllPrepaidServices() {
         return prepaidServiceFinder.getAllPrepaidServices();
+    }
+
+
+    @PostMapping("/prolong")
+    @Operation(
+            summary = "Request to Prolong Prepaid Service",
+            description = "Simulates a request to prolong the expiration date of a prepaid service for the user."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Prolongation request successful"),
+    })
+    public ResponseEntity<Void> prolongPrepaidService(@RequestBody ProlongRequest request) {
+        var fakeUserId = 1L;
+        eventPublisher.publishEvent(new ProlongEvent(fakeUserId, request.serviceId()));
+        return ResponseEntity.noContent().build();
     }
 }

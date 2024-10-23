@@ -1,5 +1,6 @@
-package com.skoda.tenderconnectivity.backendservice.prepaidservice.domain;
+package com.skoda.tenderconnectivity.backendservice.prepaidservice.service;
 
+import com.skoda.tenderconnectivity.backendservice.prepaidservice.service.domain.UserPrepaidService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

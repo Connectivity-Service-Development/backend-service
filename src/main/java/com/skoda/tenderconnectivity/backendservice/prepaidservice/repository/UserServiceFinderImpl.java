@@ -21,7 +21,7 @@ public class UserServiceFinderImpl implements UserServiceFinder {
         return repository.findByUser_Id(userId)
                 .stream()
                 .map(entity -> new UserPrepaidService(
-                        entity.getId(),
+                        entity.getPrepaidService().getId(),
                         entity.getPrepaidService().getServiceName(),
                         entity.getExpirationDate()))
                 .collect(Collectors.toList());

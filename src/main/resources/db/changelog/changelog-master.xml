@@ -9,18 +9,6 @@
             CREATE
             EXTENSION IF NOT EXISTS "uuid-ossp";
         </sql>
-        <createTable tableName="sample">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="username" type="VARCHAR(50)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="email" type="VARCHAR(100)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP"/>
-        </createTable>
     </changeSet>
 
     <changeSet id="2" author="Dmitry Avgustis">
@@ -56,7 +44,7 @@
 
     <changeSet id="4" author="Dmitry Avgustis">
         <createTable tableName="user_prepaid_service">
-            <column name="id" type="BIGINT" autoIncrement="true">
+            <column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="BIGINT">
@@ -162,7 +150,6 @@
         </insert>
 
         <insert tableName="user_prepaid_service">
-            <column name="id" value="1"/>
             <column name="user_id" value="1"/>
             <column name="prepaid_service_id"
                     valueComputed="(SELECT id FROM prepaid_service WHERE service_name = 'INFOTAINMENT_ONLINE')">
@@ -174,7 +161,6 @@
         </insert>
 
         <insert tableName="user_prepaid_service">
-            <column name="id" value="2"/>
             <column name="user_id" value="1"/>
             <column name="prepaid_service_id"
                     valueComputed="(SELECT id FROM prepaid_service WHERE service_name = 'INTELLIGENT_SPEED_ASSIST')">

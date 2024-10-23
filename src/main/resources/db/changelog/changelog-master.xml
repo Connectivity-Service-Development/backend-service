@@ -1,0 +1,198 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="Dmitry Avgustis">
+        <createTable tableName="sample">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Dmitry Avgustis">
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Dmitry Avgustis">
+        <createTable tableName="prepaid_service">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="service_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="price" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="Dmitry Avgustis">
+        <createTable tableName="user_prepaid_service">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prepaid_service_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiration_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="user_prepaid_service"
+                baseColumnNames="user_id"
+                referencedTableName="user"
+                referencedColumnNames="id"
+                constraintName="fk_user_prepaid_service_user"/>
+
+        <addForeignKeyConstraint
+                baseTableName="user_prepaid_service"
+                baseColumnNames="prepaid_service_id"
+                referencedTableName="prepaid_service"
+                referencedColumnNames="id"
+                constraintName="fk_user_prepaid_service_prepaid_service"/>
+    </changeSet>
+    <changeSet id="5" author="Dmitry Avgustis">
+        <addColumn tableName="user">
+            <column name="created_date" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_date" type="TIMESTAMPTZ"/>
+        </addColumn>
+
+        <addColumn tableName="prepaid_service">
+            <column name="created_date" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_date" type="TIMESTAMPTZ"/>
+        </addColumn>
+
+        <addColumn tableName="user_prepaid_service">
+            <column name="created_date" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_date" type="TIMESTAMPTZ"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="6" author="Dmitry Avgustis">
+        <insert tableName="user">
+            <column name="id" value="1"/>
+            <column name="username" value="testuser"/>
+            <column name="email" value="testuser@example.com"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="prepaid_service">
+            <column name="id" value="1"/>
+            <column name="service_name" value="INFOTAINMENT_ONLINE"/>
+            <column name="description" value="Infotainment Online Service"/>
+            <column name="price" value="9.99"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="prepaid_service">
+            <column name="id" value="2"/>
+            <column name="service_name" value="REMOTE_ACCESS"/>
+            <column name="description" value="Remote Access Service"/>
+            <column name="price" value="7.99"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="prepaid_service">
+            <column name="id" value="3"/>
+            <column name="service_name" value="TRAVEL_ASSIST"/>
+            <column name="description" value="Online data for Travel Assist"/>
+            <column name="price" value="5.99"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="prepaid_service">
+            <column name="id" value="4"/>
+            <column name="service_name" value="MEDIA_STREAMING"/>
+            <column name="description" value="Media Streaming Service"/>
+            <column name="price" value="8.49"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="prepaid_service">
+            <column name="id" value="5"/>
+            <column name="service_name" value="INTELLIGENT_SPEED_ASSIST"/>
+            <column name="description" value="Online data for Intelligent Speed Assist"/>
+            <column name="price" value="6.99"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="prepaid_service">
+            <column name="id" value="6"/>
+            <column name="service_name" value="TRAFFICATION"/>
+            <column name="description" value="Traffication Service"/>
+            <column name="price" value="4.99"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="user_prepaid_service">
+            <column name="id" value="1"/>
+            <column name="user_id" value="1"/>
+            <column name="prepaid_service_id" value="1"/>
+            <column name="expiration_date" valueDate="2023-12-01"/>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="user_prepaid_service">
+            <column name="id" value="2"/>
+            <column name="user_id" value="1"/>
+            <column name="prepaid_service_id" value="2"/>
+            <column name="expiration_date" valueDate="2023-11-15"/>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+        <insert tableName="user_prepaid_service">
+            <column name="id" value="3"/>
+            <column name="user_id" value="1"/>
+            <column name="prepaid_service_id" value="3"/>
+            <column name="expiration_date" valueDate="2023-11-20"/>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="created_date" valueDate="2023-10-20T10:00:00"/>
+            <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -21,7 +21,10 @@ public class PrepaidServiceFinderImpl implements PrepaidServiceFinder {
                 .map(entity -> new PrepaidService(
                         entity.getId(),
                         entity.getServiceName(),
-                        entity.getDescription()))
+                        entity.getDescription(),
+                        entity.getPrice(),
+                        entity.getBulletPoints()
+                ))
                 .collect(Collectors.toList());
     }
 }

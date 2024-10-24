@@ -86,6 +86,10 @@
             <column name="last_modified_date" type="TIMESTAMPTZ"/>
         </addColumn>
 
+        <addColumn tableName="prepaid_service">
+            <column name="bullet_points" type="TEXT[]"/>
+        </addColumn>
+
         <addColumn tableName="user_prepaid_service">
             <column name="created_date" type="TIMESTAMPTZ" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="last_modified_date" type="TIMESTAMPTZ"/>
@@ -105,6 +109,8 @@
             <column name="service_name" value="INFOTAINMENT_ONLINE"/>
             <column name="description" value="Infotainment Online Service"/>
             <column name="price" value="9.99"/>
+            <column name="bullet_points"
+                    value="{Stream music and podcasts, Get live traffic updates, Access news and weather reports, Connect apps for hands-free control, Voice control for easy navigation}"/>
             <column name="created_date" valueDate="2023-10-20T10:00:00"/>
             <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
         </insert>
@@ -113,6 +119,8 @@
             <column name="service_name" value="REMOTE_ACCESS"/>
             <column name="description" value="Remote Access Service"/>
             <column name="price" value="7.99"/>
+            <column name="bullet_points"
+                    value="{See and share your parking position, Record all your driving data, Manage your digital logbook, Control your vehicle’s service needs, Optimize your fuel costs, And much more}"/>
             <column name="created_date" valueDate="2023-10-20T10:00:00"/>
             <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
         </insert>
@@ -121,6 +129,8 @@
             <column name="service_name" value="TRAVEL_ASSIST"/>
             <column name="description" value="Online data for Travel Assist"/>
             <column name="price" value="5.99"/>
+            <column name="bullet_points"
+                    value="{Real-time route planning, Find the fastest alternative routes, Access live road condition alerts, Receive real-time traffic congestion updates, Plan stops for rest areas and refueling}"/>
             <column name="created_date" valueDate="2023-10-20T10:00:00"/>
             <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
         </insert>
@@ -129,6 +139,8 @@
             <column name="service_name" value="MEDIA_STREAMING"/>
             <column name="description" value="Media Streaming Service"/>
             <column name="price" value="8.49"/>
+            <column name="bullet_points"
+                    value="{Stream video and music seamlessly, Supports multiple media platforms, High-quality audio and video, Buffer-free playback during trips, Connect multiple devices at once}"/>
             <column name="created_date" valueDate="2023-10-20T10:00:00"/>
             <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
         </insert>
@@ -137,6 +149,8 @@
             <column name="service_name" value="INTELLIGENT_SPEED_ASSIST"/>
             <column name="description" value="Online data for Intelligent Speed Assist"/>
             <column name="price" value="6.99"/>
+            <column name="bullet_points"
+                    value="{Automatic speed limit detection, Speed alerts based on location, Reduce risk of speeding violations, Real-time adjustments based on road conditions, Assist with safe and efficient driving}"/>
             <column name="created_date" valueDate="2023-10-20T10:00:00"/>
             <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
         </insert>
@@ -145,6 +159,8 @@
             <column name="service_name" value="TRAFFICATION"/>
             <column name="description" value="Traffication Service"/>
             <column name="price" value="4.99"/>
+            <column name="bullet_points"
+                    value="{Receive alerts for nearby hazards, Get notified of sudden traffic changes, Stay updated on road closures and diversions, Minimize travel delays with route suggestions, Real-time traffic density updates}"/>
             <column name="created_date" valueDate="2023-10-20T10:00:00"/>
             <column name="last_modified_date" valueDate="2023-10-20T10:00:00"/>
         </insert>
@@ -171,6 +187,44 @@
             <column name="last_modified_date" valueDate="2024-10-20T10:00:00"/>
         </insert>
 
+    </changeSet>
+
+    <changeSet id="7" author="Dmitry Avgustis">
+        <update tableName="prepaid_service">
+            <column name="description"
+                    value="The Infotainment Online Service provides seamless access to music, podcasts, and live streaming, ensuring an enjoyable driving experience. Stay informed with real-time traffic updates, news, and weather reports, all integrated into your vehicle’s dashboard. Connect your favorite apps for hands-free control and navigate effortlessly using advanced voice recognition features."/>
+            <where>service_name = 'INFOTAINMENT_ONLINE'</where>
+        </update>
+
+        <update tableName="prepaid_service">
+            <column name="description"
+                    value="Remote Access Service allows you to stay connected with your vehicle, no matter where you are. Easily check and share your parking position, record and analyze your driving data, and manage a digital logbook to keep track of all your journeys. Control essential vehicle functions, schedule maintenance, and receive timely alerts for optimal performance, helping you save on fuel costs."/>
+            <where>service_name = 'REMOTE_ACCESS'</where>
+        </update>
+
+        <update tableName="prepaid_service">
+            <column name="description"
+                    value="Travel Assist provides comprehensive support for your road trips, offering real-time route planning and navigation assistance. It finds the fastest and most efficient routes based on live traffic conditions, helping you avoid congestion and roadblocks. With access to live road condition alerts, you can plan your stops for rest areas and refueling, making long journeys safer and more convenient."/>
+            <where>service_name = 'TRAVEL_ASSIST'</where>
+        </update>
+
+        <update tableName="prepaid_service">
+            <column name="description"
+                    value="Media Streaming Service transforms your vehicle into a mobile entertainment hub, allowing seamless streaming of video, music, and other media. With support for multiple platforms, it ensures high-quality playback even on long drives, and allows multiple devices to connect simultaneously. Enjoy buffer-free streaming, whether you are listening to your favorite playlists or watching shows on the go."/>
+            <where>service_name = 'MEDIA_STREAMING'</where>
+        </update>
+
+        <update tableName="prepaid_service">
+            <column name="description"
+                    value="Intelligent Speed Assist helps you stay safe on the road by automatically detecting speed limits and providing timely alerts. It adjusts in real-time to road conditions, ensuring that you drive within safe speed limits, minimizing the risk of speeding violations. This service is designed to assist with smooth and efficient driving, giving you more control over your journey."/>
+            <where>service_name = 'INTELLIGENT_SPEED_ASSIST'</where>
+        </update>
+
+        <update tableName="prepaid_service">
+            <column name="description"
+                    value="Traffication Service keeps you informed about traffic conditions in real-time, providing alerts on nearby hazards, sudden changes in traffic, and road closures. It helps you plan your route to minimize delays, suggesting alternatives to keep your journey as smooth as possible. Stay updated on the road with accurate, real-time traffic density information, making your commute less stressful."/>
+            <where>service_name = 'TRAFFICATION'</where>
+        </update>
     </changeSet>
 
 </databaseChangeLog>

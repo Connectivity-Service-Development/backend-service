@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class UserPrepaidServiceProlongationImplTest extends BackendServiceApplicationTests {
     @Autowired
@@ -25,8 +26,8 @@ class UserPrepaidServiceProlongationImplTest extends BackendServiceApplicationTe
         var userPrepaidService = userPrepaidServiceProlongation.prolongUserPrepaidService(1L, ps.getId());
 
         assertEquals("INFOTAINMENT_ONLINE", userPrepaidService.serviceName());
-        assertEquals(LocalDate.now().plusDays(1), userPrepaidService.expirationDate());
-        assertEquals(false, userPrepaidService.isExpired());
+        assertEquals(LocalDate.now().plusMonths(2), userPrepaidService.expirationDate());
+        assertFalse(userPrepaidService.isExpired());
     }
 
 }

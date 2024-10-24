@@ -33,7 +33,7 @@ public class UserPrepaidServiceProlongationImpl implements UserPrepaidServicePro
         var userPrepaidServiceEntity = UserPrepaidServiceEntity.builder()
                 .user(userEntity)
                 .prepaidService(prepaidServiceEntity)
-                .expirationDate(LocalDate.now().plusDays(1L))
+                .expirationDate(LocalDate.now().plusMonths(2L))
                 .build();
         userPrepaidServiceEntity = userPrepaidServiceRepository.save(userPrepaidServiceEntity);
         return new UserPrepaidService(prepaidServiceEntity.getId(), userPrepaidServiceEntity.getPrepaidService().getServiceName(), userPrepaidServiceEntity.getExpirationDate());

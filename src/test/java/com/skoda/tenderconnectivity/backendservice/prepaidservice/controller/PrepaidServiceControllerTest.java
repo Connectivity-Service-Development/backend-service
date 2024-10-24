@@ -1,9 +1,7 @@
 package com.skoda.tenderconnectivity.backendservice.prepaidservice.controller;
 
 import com.skoda.tenderconnectivity.backendservice.BackendServiceApplicationTests;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -18,9 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class PrepaidServiceControllerTest extends BackendServiceApplicationTests {
-
-    @Autowired
-    EntityManager entityManager;
 
 
     @Test
@@ -41,6 +36,7 @@ class PrepaidServiceControllerTest extends BackendServiceApplicationTests {
                 .andExpect(jsonPath("$[1].expired").value(true));
 
     }
+
     @Test
     void testAllPrepaidServices_shouldOk() throws Exception {
         mockMvc.perform(get("/api/prepaid-services/all"))

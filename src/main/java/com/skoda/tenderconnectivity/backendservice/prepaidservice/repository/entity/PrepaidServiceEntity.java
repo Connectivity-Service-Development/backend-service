@@ -3,6 +3,8 @@ package com.skoda.tenderconnectivity.backendservice.prepaidservice.repository.en
 import com.skoda.tenderconnectivity.backendservice.common.repository.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,6 +26,9 @@ public class PrepaidServiceEntity extends Auditable {
     private String serviceName;
     private String description;
     private BigDecimal price;
+    @Column(name = "bullet_points", columnDefinition = "TEXT[]")
+    @JdbcTypeCode(SqlTypes.ARRAY)
+    private List<String> bulletPoints;
 
     @OneToMany(mappedBy = "prepaidService", cascade = CascadeType.ALL)
     @ToString.Exclude
